@@ -3,6 +3,7 @@ import React from "react";
 import Chart from "../../components/Chart/Chart";
 import MiniCard from "../../components/MiniCard/MiniCard";
 import LayoutA from "../../components/Layouts/LayoutA";
+import Order from "../../components/Table/Order";
 
 function createData(time, amount) {
   return { x_axis: time, y_axis: amount };
@@ -52,6 +53,11 @@ const Dashboard = () => {
                 </Link>
               </div>
             </MiniCard>
+          </Paper>
+        </Grid>
+        <Grid item xs={12}>
+          <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column'}}>
+            <Order title="Recent Orders" />
           </Paper>
         </Grid>
       </Grid>
