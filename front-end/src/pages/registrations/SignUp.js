@@ -12,6 +12,7 @@ import {
 } from "@mui/material";
 import AppLogo from "../../components/UI/AppLogo";
 import Copyright from "../../components/UI/Copyright";
+import { Link as RouterLink } from "react-router-dom";
 
 const SignUp = () => {
   return (
@@ -87,14 +88,14 @@ const SignUp = () => {
           </Button>
           <Grid container justifyContent="flex-end">
             <Grid item>
-              <Link href="/sign-in" variant="body2">
+              <Link component={RouterLink} to="/sign-in" variant="body2">
                 {"Already have an account? Sign in"}
               </Link>
             </Grid>
           </Grid>
         </Box>
       </Box>
-      <Copyright sx={{ mt:8, mb: 4 }} />
+      <Copyright sx={{ mt: 8, mb: 4 }} />
     </Container>
   );
 };

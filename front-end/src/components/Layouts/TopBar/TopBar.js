@@ -26,6 +26,9 @@ const TopBar = (props) => {
         >
           {props.title || ''}
         </Typography>
+        <nav>
+
+        </nav>
         <IconButton color="inherit">
           <Badge badgeContent={4} color="secondary">
             <NotificationsIcon />

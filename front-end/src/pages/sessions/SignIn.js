@@ -12,6 +12,7 @@ import {
 } from "@mui/material";
 import Copyright from "../../components/UI/Copyright";
 import AppLogo from "../../components/UI/AppLogo";
+import { Link as RouterLink } from 'react-router-dom';
 
 const SignIn = () => {
   return (
@@ -61,12 +62,12 @@ const SignIn = () => {
         </Box>
         <Grid container>
           <Grid item xs>
-            <Link href="/" variant="body2">
+            <Link component={RouterLink} to="/" variant="body2">
               Forgot password?
             </Link>
           </Grid>
           <Grid item>
-            <Link href="/sign-up" variant="body2">
+            <Link component={RouterLink} to="/sign-up" variant="body2">
               {"Don't have an account? Sign Up"}
             </Link>
           </Grid>
