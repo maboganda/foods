@@ -1,21 +1,26 @@
 import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
-import AdapterDateFns from "@mui/lab/AdapterDateFns";
-import LocalizationProvider from "@mui/lab/LocalizationProvider";
-import DatePicker from "@mui/lab/DatePicker";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
 const BasicDatePicker = (props) => {
   const [value, setValue] = useState(null);
 
+  const handleChange = (newValue) => {
+    setValue(newValue);
+    props?.onCustomDateChange && props.onCustomDateChange(newValue);
+  };
+
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <DatePicker
-        label={ props.label || "Date"}
+        label={props.label || "Date"}
         value={value}
-        onChange={(newValue) => {
-          setValue(newValue);
-        }}
-        renderInput={(params) => <TextField {...params} fullWidth variant="standard"/>}
+        onChange={handleChange}
+        renderInput={(params) => (
+          <TextField {...params} fullWidth variant="standard" />
+        )}
       />
     </LocalizationProvider>
   );

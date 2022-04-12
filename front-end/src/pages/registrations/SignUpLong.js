@@ -20,7 +20,7 @@ const steps = ["Basic", "Secondary", "Supporting Documents"];
 function getStepContent(step) {
   switch (step) {
     case 0:
-      return <ProfileForm />;
+      return <ProfileForm/>;
     case 1:
       return <DetailForm />;
     case 2:
