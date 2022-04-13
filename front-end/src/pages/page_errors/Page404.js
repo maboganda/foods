@@ -1,7 +1,7 @@
 import { Container, Typography } from "@mui/material";
 import React from "react";
 
-const NotFound = () => {
+const Page404 = () => {
   return (
     <Container
       component="main"
@@ -37,4 +37,4 @@ const NotFound = () => {
   );
 };
 
-export default NotFound;
+export default Page404;

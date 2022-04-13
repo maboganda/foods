@@ -1,7 +1,6 @@
 import * as action from "./action";
 import axios from "axios";
 import { push } from "redux-first-history";
-import { parseErrorMessage } from "../components/Utils/utils";
 
 axios.defaults.headers.post["Content-Type"] = "application/json; charset=utf-8";
 axios.defaults.withCredentials = true;
@@ -17,8 +16,7 @@ export const createSession = (params) => {
         dispatch(push("/"));
       })
       .catch((error) => {
-        const msg = parseErrorMessage(error);
-        dispatch(action.HTTP_REQUEST_ERROR(msg));
+        dispatch(action.HTTP_REQUEST_ERROR(error.toJSON().status));
       });
   };
 };
@@ -31,7 +29,9 @@ export const destroySession = () => {
         dispatch(action.DESTROY_SESSION);
         dispatch(push("/sign-in"));
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        dispatch(action.HTTP_REQUEST_ERROR(error.toJSON().status));
+      });
   };
 };
 
@@ -43,13 +43,7 @@ export const getDashboardData = () => {
         console.log("SUCCESS ENTRY");
       })
       .catch((error) => {
-        const msg = parseErrorMessage(error);
-
-        if (error.toJSON().status === 401) {
-          return dispatch(push("/sign-in"));
-        }
-
-        dispatch(action.HTTP_REQUEST_ERROR(msg));
+        dispatch(action.HTTP_REQUEST_ERROR(error.toJSON().status));
       });
   };
 };
