@@ -1,4 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
+import { Link as RouterLink } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { createSession } from "../../redux/actionCreator";
+
+import Copyright from "../../components/UI/Copyright";
+import AppLogo from "../../components/UI/AppLogo";
 import {
   Box,
   Button,
@@ -6,15 +12,49 @@ import {
   Container,
   FormControlLabel,
   Grid,
-  TextField,
   Link,
   Typography,
+  InputAdornment,
+  IconButton,
+  FormControl,
+  InputLabel,
+  OutlinedInput,
 } from "@mui/material";
-import Copyright from "../../components/UI/Copyright";
-import AppLogo from "../../components/UI/AppLogo";
-import { Link as RouterLink } from 'react-router-dom';
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
 const SignIn = () => {
+  const [values, setValues] = useState({
+    email: "",
+    password: "",
+    showPassword: false,
+  });
+  const dispatch = useDispatch();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(createSession(values));
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setValues((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
+  const handleShowPassword = (e) => {
+    setValues((prevState) => ({
+      ...prevState,
+      showPassword: !prevState.showPassword,
+    }));
+  };
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
+
   return (
     <Container component="main" maxWidth="xs">
       <Box
@@ -29,24 +69,49 @@ const SignIn = () => {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <Box component="form" sx={{ mt: 1 }}>
-          <TextField
-            margin="normal"
+        <Box component="form" sx={{ mt: 1 }} onSubmit={handleSubmit}>
+          <FormControl
             fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoFocus
-            autoComplete="email"
-          />
-          <TextField
-            margin="normal"
+            sx={{ marginTop: 2, marginBottom: 1 }}
+            variant="outlined"
+          >
+            <InputLabel htmlFor="email">Email Address</InputLabel>
+            <OutlinedInput
+              id="email"
+              name="email"
+              value={values.email}
+              onChange={handleChange}
+              autoFocus
+              label="Email Address"
+            />
+          </FormControl>
+          <FormControl
             fullWidth
-            id="password"
-            label="Password"
-            name="password"
-            autoComplete="current-password"
-          />
+            sx={{ marginTop: 2, marginBottom: 1 }}
+            variant="outlined"
+          >
+            <InputLabel htmlFor="password">Password</InputLabel>
+            <OutlinedInput
+              id="password"
+              name="password"
+              type={values.showPassword ? "text" : "password"}
+              value={values.password}
+              onChange={handleChange}
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                    edge="end"
+                  >
+                    {values.showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              }
+              label="Password"
+            />
+          </FormControl>
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"

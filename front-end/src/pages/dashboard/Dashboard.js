@@ -1,9 +1,11 @@
 import { Grid, Link, Paper } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 import Chart from "../../components/Chart/Chart";
 import MiniCard from "../../components/MiniCard/MiniCard";
 import LayoutA from "../../components/Layouts/LayoutA";
 import Order from "../../components/Table/Order";
+import { useDispatch } from "react-redux";
+import { getDashboardData } from "../../redux/actionCreator";
 
 function createData(time, amount) {
   return { x_axis: time, y_axis: amount };
@@ -22,6 +24,12 @@ const data = [
 ];
 
 const Dashboard = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getDashboardData());
+  }, [dispatch]);
+
   return (
     <LayoutA title="Dashboard">
       <Grid container spacing={3}>
@@ -46,7 +54,11 @@ const Dashboard = () => {
               height: 240,
             }}
           >
-            <MiniCard title="Recent Deposits" detail="$3,024.00" subDetail="on 04 April, 2022">
+            <MiniCard
+              title="Recent Deposits"
+              detail="$3,024.00"
+              subDetail="on 04 April, 2022"
+            >
               <div>
                 <Link color="primary" href="#">
                   View Balance
@@ -56,7 +68,7 @@ const Dashboard = () => {
           </Paper>
         </Grid>
         <Grid item xs={12}>
-          <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column'}}>
+          <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
             <Order title="Recent Orders" />
           </Paper>
         </Grid>

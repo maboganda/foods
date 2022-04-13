@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import LayoutASideBarList from "./LayoutASideBarList";
 import SideBar from "./SideBar/SideBar";
 import TopBar from "./TopBar/TopBar";
-import Copyright from "../UI/Copyright";
 
 export const LayoutA = (props) => {
   const [open, setOpen] = useState(true);
@@ -32,7 +31,6 @@ export const LayoutA = (props) => {
         <Toolbar />
         <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
           {props.children}
-          {/* <Copyright sx={{ pt: 4 }} /> */}
         </Container>
       </Box>
     </Box>
