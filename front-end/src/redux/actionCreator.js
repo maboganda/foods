@@ -2,9 +2,10 @@ import * as action from "./action";
 import axios from "axios";
 import { push } from "redux-first-history";
 
-axios.defaults.headers.post["Content-Type"] = "application/json; charset=utf-8";
+// install npm i cors #to enable cors
+axios.defaults.headers.post["Content-Type"] = "application/json;";
+// axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
 axios.defaults.withCredentials = true;
-axios.defaults.mode = "cors";
 
 export const createSession = (params) => {
   return (dispatch) => {
