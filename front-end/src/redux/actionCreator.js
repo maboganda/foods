@@ -48,3 +48,16 @@ export const getDashboardData = () => {
       });
   };
 };
+
+export const getCustomersData = (meta) => {
+  return (dispatch) => {
+    axios
+      .get(`${process.env.REACT_APP_API_URL}/v1/customers`, { meta })
+      .then((resp) => {
+        dispatch(action.FETCH_CUSTOMERS(resp.data))
+      })
+      .catch((error) => {
+        dispatch(action.HTTP_REQUEST_ERROR(error.toJSON().status))
+      })
+  }
+}

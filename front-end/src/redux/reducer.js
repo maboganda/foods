@@ -7,6 +7,7 @@ const initialState = {
   token: null,
   errorStatusCode: null,
   registrations: registration_obj,
+  collection: {},
 };
 
 const adminsReducer = createReducer(initialState, {
@@ -24,6 +25,11 @@ const adminsReducer = createReducer(initialState, {
     state.isLoggedIn = false;
     state.token = null;
     state.errorStatusCode = null;
+    return state;
+  },
+  [action.FETCH_CUSTOMERS]: (state, action) => {
+    state.errorStatusCode = null;
+    state.collection = action.payload;
     return state;
   },
   [action.GET_DASHBOARD_DATA]: (state) => {
