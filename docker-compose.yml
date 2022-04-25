@@ -1,0 +1,35 @@
+version: "3.5"
+services:
+  db:
+    image: postgres:12-alpine3.15
+    container_name: food_db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    ports:
+      - 5432:5432
+  api:
+    build:
+      context: .
+      dockerfile: ./back-end/Dockerfile
+    container_name: food_api
+    ports:
+      - 3100:3100
+    env_file: ./back-end/.envrc
+    entrypoint: entrypoint.sh
+    environment:
+      RAILS_ENV: development
+    command: ["rails", "s", "-p", "3100", "-b", "0.0.0.0"]
+    depends_on:
+      - db
+  client:
+    build:
+      context: .
+      dockerfile: ./front-end/Dockerfile
+    container_name: food_ui
+    environment:
+      NODE_ENV: development
+    ports:
+      - 3000:3000
+    depends_on:
+      - api
