@@ -19,6 +19,8 @@ services:
     entrypoint: entrypoint.sh
     environment:
       RAILS_ENV: development
+    volumes:
+      - ./back-end/.:/foods/back-end
     command: ["rails", "s", "-p", "3100", "-b", "0.0.0.0"]
     depends_on:
       - db
@@ -27,9 +29,12 @@ services:
       context: .
       dockerfile: ./front-end/Dockerfile
     container_name: food_ui
-    environment:
-      NODE_ENV: development
     ports:
       - 3000:3000
+    environment:
+      NODE_ENV: development
+    volumes:
+      - ./front-end/.:/foods/front-end
+    env_file: ./front-end/.env
     depends_on:
       - api

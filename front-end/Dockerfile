@@ -1,6 +1,6 @@
 FROM node:16-alpine3.15
 
-ENV APP_PATH /app/front-end
+ENV APP_PATH /foods/front-end
 
 RUN mkdir -p $APP_PATH
 WORKDIR $APP_PATH
